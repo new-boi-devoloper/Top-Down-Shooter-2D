@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2434889916824889904}
   - component: {fileID: 6852500064356133668}
   - component: {fileID: 2171356282310018464}
+  - component: {fileID: 8850362849380581434}
+  - component: {fileID: 8236598887678832902}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -34,6 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 439754758924769370}
+  - {fileID: 650776201182029031}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &5052071859834054862
@@ -65,7 +68,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.013065415, y: -0.63360846}
@@ -132,10 +135,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0096db2feee66f44aab077c09144e798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startState: 1
-  roamingDistanceMax: 4
-  roamingDistanceMin: 3
-  roamingTimerMax: 2
+  startingState: 1
+--- !u!114 &8850362849380581434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118569980898280435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c1e8460d652f54ebe3965050c53f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: aebbddd4fa0553d40994b8a722dcaf76, type: 2}
+--- !u!114 &8236598887678832902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118569980898280435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42b9e76bf591d94fb03db19a1e3a1f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRadius: 1
+  attackZone: {fileID: 650776201182029031}
 --- !u!1 &2756163675495367643
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,3 +282,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3780aba886e582a48879bb64e8071fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7329604034321339797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 650776201182029031}
+  m_Layer: 0
+  m_Name: AttackZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &650776201182029031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7329604034321339797}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.25, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4558491270643249040}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Bootstrapper : MonoBehaviour
@@ -5,19 +6,30 @@ public class Bootstrapper : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private InputListener inputListener;
 
-    private PlayerInvoker _playerInvoker;
-    private PlayerMovement _playerMovement;
+    private PlayerInvoker playerInvoker;
+    private PlayerMovement playerMovement;
+
+    public static Bootstrapper Instance { get; private set; }
 
     private void Awake()
     {
-        _playerMovement = new PlayerMovement();
-        _playerInvoker = new PlayerInvoker(player, _playerMovement);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
-        _playerInvoker.Subscribe(inputListener);
+        playerMovement = new PlayerMovement();
+        playerInvoker = new PlayerInvoker(player, playerMovement);
+        playerInvoker.Subscribe(inputListener);
     }
 
     private void OnDestroy()
     {
-        _playerInvoker.Unsubscribe(inputListener);
+        playerInvoker.Unsubscribe(inputListener);
     }
 }
