@@ -57,10 +57,6 @@ public class WaveManager : MonoBehaviour
             enemySpawner.SpawnEnemies(5);
             Debug.Log("6");
         }
-        else
-        {
-            Debug.LogError("EnemySpawner is not set. Please ensure EnemySpawner is properly initialized.");
-        }
     }
 
     public void OnEnemyDeath()

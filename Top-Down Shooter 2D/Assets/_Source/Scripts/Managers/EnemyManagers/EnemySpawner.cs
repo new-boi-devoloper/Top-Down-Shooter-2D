@@ -36,13 +36,11 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemyIds == null || enemyIds.Count == 0)
         {
-            Debug.LogError("No enemy IDs set. Please ensure enemy IDs are properly initialized.");
             return;
         }
-
+        
         if (_randomSpawnPositions == null || _randomSpawnPositions.Count == 0)
         {
-            Debug.LogError("No spawn points available. Please ensure spawn points are properly initialized.");
             return;
         }
 
@@ -50,16 +48,13 @@ public class EnemySpawner : MonoBehaviour
         {
             int randomId = PickRandomId();
             Transform randomPosition = PickRandomPosition();
-            if (randomPosition == null)
-            {
-                Debug.LogWarning("Failed to pick a random position.");
-                continue;
-            }
+
 
             GameObject spawnedEnemy = ObjectPooler.Instance.SpawnFromPool(randomId, randomPosition.position, Quaternion.identity);
             if (spawnedEnemy == null)
             {
                 Debug.LogWarning($"Failed to spawn enemy with ID {randomId} at position {randomPosition.position}.");
+
             }
         }
     }
