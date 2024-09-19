@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bootstrapper : MonoBehaviour
@@ -8,8 +7,12 @@ public class Bootstrapper : MonoBehaviour
 
     private PlayerInvoker playerInvoker;
     private PlayerMovement playerMovement;
+    private PlayerCombat playerCombat;
+    private PlayerControls playerControls;
+    private ActiveWeapon activeWeapon;
 
     public static Bootstrapper Instance { get; private set; }
+    public PlayerCombat PlayerCombat => playerCombat;
 
     private void Awake()
     {
@@ -23,8 +26,12 @@ public class Bootstrapper : MonoBehaviour
             Destroy(gameObject);
         }
 
+        playerControls = new PlayerControls();
+        playerCombat = new PlayerCombat();
         playerMovement = new PlayerMovement();
         playerInvoker = new PlayerInvoker(player, playerMovement);
+        activeWeapon = new ActiveWeapon(playerControls);
+
         playerInvoker.Subscribe(inputListener);
     }
 

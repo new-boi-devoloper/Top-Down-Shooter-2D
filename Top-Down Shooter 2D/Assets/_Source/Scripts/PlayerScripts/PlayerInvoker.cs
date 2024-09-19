@@ -8,20 +8,22 @@ public class PlayerInvoker
 
     public PlayerInvoker(Player player, PlayerMovement playerMovement)
     {
-        this._player = player;
-        this._playerMovement = playerMovement;
+        _player = player;
+        _playerMovement = playerMovement;
     }
 
     public void Subscribe(InputListener inputListener)
     {
         inputListener.OnMove += OnMove;
         inputListener.OnStop += OnStop;
+        inputListener.OnFire += OnFire;
     }
 
     public void Unsubscribe(InputListener inputListener)
     {
         inputListener.OnMove -= OnMove;
         inputListener.OnStop -= OnStop;
+        inputListener.OnFire -= OnFire;
     }
 
     private void OnMove(Vector2 direction)
@@ -32,5 +34,10 @@ public class PlayerInvoker
     private void OnStop()
     {
         _playerMovement.Stop(_player.Rb);
+    }
+
+    private void OnFire()
+    {
+        // _weapon.Shoot();
     }
 }

@@ -16,8 +16,8 @@ MonoBehaviour:
   speed: 2
   attackPower: 3
   health: 5
-  roamingDistanceMax: 7
-  roamingDistanceMin: 3
+  roamingDistanceMax: 3
+  roamingDistanceMin: 1
   roamingTimerMax: 2
   isChasingEnemy: 1
   chasingDistance: 5

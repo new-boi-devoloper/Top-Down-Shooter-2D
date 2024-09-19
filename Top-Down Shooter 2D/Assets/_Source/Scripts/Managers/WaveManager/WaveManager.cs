@@ -1,10 +1,32 @@
+using System;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private EnemySpawner enemySpawner;
 
-    private void Start()
+    public int remainingEnemies { get; private set; }
+
+    #region Singleton
+
+    public static WaveManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    #endregion
+
+    private void OnEnable()
     {
         // Подписываемся на событие инициализации ObjectPooler
         if (ObjectPooler.Instance != null)
@@ -29,6 +51,21 @@ public class WaveManager : MonoBehaviour
     private void OnPoolInitialized()
     {
         // Вызываем спавн врагов после инициализации ObjectPooler
-        enemySpawner.SpawnEnemies(5);
+        if (enemySpawner != null)
+        {
+            Debug.Log("5");
+            enemySpawner.SpawnEnemies(5);
+            Debug.Log("6");
+        }
+        else
+        {
+            Debug.LogError("EnemySpawner is not set. Please ensure EnemySpawner is properly initialized.");
+        }
+    }
+
+    public void OnEnemyDeath()
+    {
+        remainingEnemies--;
+        Debug.Log($"Enemy died. Remaining enemies: {remainingEnemies}");
     }
 }

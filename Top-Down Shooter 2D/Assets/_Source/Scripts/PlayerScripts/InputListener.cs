@@ -6,12 +6,16 @@ public class InputListener : MonoBehaviour
 {
     public event Action<Vector2> OnMove;
     public event Action OnStop;
+    public event Action OnFire;
 
     private PlayerControls playerControls;
+    private AimingSystem aimingSystem;
 
     private void Awake()
     {
         playerControls = new PlayerControls();
+        playerControls.Player.Fire.performed += ctx => OnFire?.Invoke();
+        aimingSystem = GetComponent<AimingSystem>();
     }
 
     private void FixedUpdate()
@@ -35,5 +39,10 @@ public class InputListener : MonoBehaviour
     private void OnDisable()
     {
         playerControls.Disable();
+    }
+
+    public Vector3 GetAimPosition()
+    {
+        return aimingSystem.GetAimPosition();
     }
 }

@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
     private Vector3 startingPosition;
 
     public event Action<EnemyData> OnAttackStateEntered;
+    public event Action<GameObject> OnEnemyDeath;
 
     public void Initialize(EnemyData enemyData, EnemyInvoker enemyInvoker)
     {
@@ -82,6 +83,7 @@ public class EnemyAI : MonoBehaviour
                 CheckCurrentState();
                 break;
             case EnemyState.Death:
+                
                 break;
             default:
             case EnemyState.Idle:
@@ -155,6 +157,11 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void PlayDeath()
+    {
+        OnEnemyDeath?.Invoke(gameObject);
     }
 
     private void Roaming()
