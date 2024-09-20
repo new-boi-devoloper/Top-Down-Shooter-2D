@@ -2,110 +2,37 @@ using UnityEngine;
 
 public class ActiveWeapon : MonoBehaviour
 {
-    [SerializeField] private GameObject CurrentActiveWeapon;
-
-    private PlayerControls playerControls;
-    private float timeBetweenAttacks;
-    private float attackCooldownTimer;
-
-    private bool attackButtonDown, isAttacking = false;
-
-    #region Singleton
-
-    public static ActiveWeapon Instance { get; private set; }
-
-    private void Awake()
+    [SerializeField] private GameObject weaponPrefab; // Префаб оружия
+    [SerializeField] private Transform weaponSpawnPoint; // Точка появления оружия
+    
+    private GameObject _currentWeapon;
+    
+    void Start()
     {
-        if (Instance == null)
+        // Создаем оружие при старте
+        SpawnWeapon();
+    }
+
+    private void SpawnWeapon()
+    {
+        // Если оружие не создано, создаем его
+        if (_currentWeapon == null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
+            _currentWeapon = Instantiate(weaponPrefab, weaponSpawnPoint.position, weaponSpawnPoint.rotation);
+            _currentWeapon.transform.parent = weaponSpawnPoint;
         }
     }
 
-    #endregion
-
-    public ActiveWeapon(PlayerControls playerControls)
+    public void Fire()
     {
-        this.playerControls = playerControls;
-    }
-
-    private void OnEnable()
-    {
-        playerControls.Enable();
-    }
-
-    private void Start()
-    {
-        playerControls.Player.Fire.started += _ => StartAttacking();
-        playerControls.Player.Fire.canceled += _ => StopAttacking();
-
-        AttackCooldown();
-        NewWeapon(CurrentActiveWeapon);
-    }
-
-    private void Update()
-    {
-        Attack();
-        UpdateAttackCooldown();
-    }
-
-    public void NewWeapon(GameObject newWeapon)
-    {
-        // if (newWeapon != null)
-        // {
-        //     // newWeapon = TryGetComponent<IWeapon>();
-        // }
-        //
-        // CurrentActiveWeapon = newWeapon;
-        //
-        // AttackCooldown();
-        // timeBetweenAttacks = CurrentActiveWeapon.GetGunInfo().weaponCooldown;
-    }
-
-    public void WeaponNull()
-    {
-        CurrentActiveWeapon = null;
-    }
-
-    private void AttackCooldown()
-    {
-        isAttacking = true;
-        attackCooldownTimer = timeBetweenAttacks;
-    }
-
-    private void UpdateAttackCooldown()
-    {
-        if (isAttacking)
+        if (_currentWeapon != null)
         {
-            attackCooldownTimer -= Time.deltaTime;
-            if (attackCooldownTimer <= 0)
+            // Вызываем метод стрельбы у оружия
+            IWeapon weaponScript = _currentWeapon.GetComponent<IWeapon>();
+            if (weaponScript != null)
             {
-                isAttacking = false;
+                weaponScript.Attack();
             }
-        }
-    }
-
-    private void StartAttacking()
-    {
-        attackButtonDown = true;
-    }
-
-    private void StopAttacking()
-    {
-        attackButtonDown = false;
-    }
-
-    private void Attack()
-    {
-        if (attackButtonDown && !isAttacking && CurrentActiveWeapon != null)
-        {
-            AttackCooldown();
-            // CurrentActiveWeapon.Attack();
         }
     }
 }

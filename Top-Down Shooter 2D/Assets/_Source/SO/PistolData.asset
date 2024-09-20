@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ed60d155037954f9fe9c345d5925d5, type: 3}
   m_Name: PistolData
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 0}
-  weaponCooldown: 0
-  weaponDamage: 0
-  weaponRange: 0
+  weaponPrefab: {fileID: 6940548730341910118, guid: b173d73cfec1acd4891f9153848c60fb, type: 3}
+  weaponCooldown: 2
+  weaponDamage: 10
+  weaponRange: 10
+  bulletSpeed: 5

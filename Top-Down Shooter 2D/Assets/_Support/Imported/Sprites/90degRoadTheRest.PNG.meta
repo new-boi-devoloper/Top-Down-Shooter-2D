@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8a873414e2d920740853e8eac43c1c49
+guid: e8e5f2f9b952d9747a377e71a48727f7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,190 +123,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ground_0
+      name: 90degRoadTheRest_0
       rect:
         serializedVersion: 2
-        x: 126
-        y: 550
+        x: 85
+        y: 332
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f41b34e0a7913f4ea2e1bca6703e0b6
-      internalID: 414034312
+      spriteID: adee20045faa86e4e8a6cf774b97c7cd
+      internalID: -1961606395
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ground_1
+      name: 90degRoadTheRest_1
       rect:
         serializedVersion: 2
-        x: 335
-        y: 534
-        width: 128
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d71f295ab81411f41b94e40caf15acc7
-      internalID: -2087256411
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_2
-      rect:
-        serializedVersion: 2
-        x: 583
-        y: 550
+        x: 255
+        y: 392
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd371e546165d6c45810a73a755947f3
-      internalID: 477655801
+      spriteID: ecd0327b7a6baca4cab94b95a5e772d6
+      internalID: -1205530329
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ground_3
+      name: 90degRoadTheRest_2
       rect:
         serializedVersion: 2
-        x: 118
-        y: 359
-        width: 136
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36c14c9537d55b64689765983b0a80b0
-      internalID: 54283721
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_4
-      rect:
-        serializedVersion: 2
-        x: 355
-        y: 338
-        width: 127
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 14eba49ad74c7b14e807b5b3d580f128
-      internalID: 1789413691
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_5
-      rect:
-        serializedVersion: 2
-        x: 583
-        y: 338
-        width: 136
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9396ff3566694234d9358e864074c04d
-      internalID: -2080624906
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_6
-      rect:
-        serializedVersion: 2
-        x: 126
-        y: 132
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 700a4969736126146a998541c0ef8f66
-      internalID: 1159665054
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_7
-      rect:
-        serializedVersion: 2
-        x: 355
-        y: 126
-        width: 128
-        height: 141
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: afc3bf57675d3d742af1a23bcd5101cc
-      internalID: -890184062
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ground_8
-      rect:
-        serializedVersion: 2
-        x: 587
+        x: 100
         y: 126
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c555f2656efb7694cba3963f3af931c0
-      internalID: -287238971
+      spriteID: 59787bc8cfd31d24e9e0da1af188902c
+      internalID: -823978060
       vertices: []
       indices: 
       edges: []
@@ -322,15 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ground_0: 414034312
-      Ground_1: -2087256411
-      Ground_2: 477655801
-      Ground_3: 54283721
-      Ground_4: 1789413691
-      Ground_5: -2080624906
-      Ground_6: 1159665054
-      Ground_7: -890184062
-      Ground_8: -287238971
+      90degRoadTheRest_0: -1961606395
+      90degRoadTheRest_1: -1205530329
+      90degRoadTheRest_2: -823978060
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,35 +1,22 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using Input = UnityEngine.Input;
 
-public class AimingSystem : MonoBehaviour
+public class MousePositionTracker : MonoBehaviour
 {
-    [SerializeField] private float pointOffset = 2f; // Расстояние от игрока до точки прицеливания
-    [SerializeField] private GameObject aimPointPrefab; // Префаб точки прицеливания
-
-    private GameObject aimPointInstance;
-    private Camera mainCamera;
-    private Transform playerTransform;
-
-    private void Start()
-    {
-        mainCamera = Camera.main;
-        playerTransform = transform;
-        aimPointInstance = Instantiate(aimPointPrefab, transform.position, Quaternion.identity);
-    }
+    private Vector3 _mousePosition;
+    private float _offset = 90;
 
     private void Update()
     {
-        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        mousePosition.z = 0f;
-
-        Vector3 direction = (mousePosition - playerTransform.position).normalized;
-        Vector3 aimPosition = playerTransform.position + direction * pointOffset;
-
-        aimPointInstance.transform.position = aimPosition;
+        // Получаем позицию курсора мыши в мировых координатах
+        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        float rotZ = Mathf.Atan2(difference.y, difference.z) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rotZ + _offset);
     }
 
-    public Vector3 GetAimPosition()
+    public Vector3 GetMousePosition()
     {
-        return aimPointInstance.transform.position;
+        // Возвращаем актуальную позицию курсора мыши
+        return _mousePosition;
     }
 }

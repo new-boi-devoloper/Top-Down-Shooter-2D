@@ -1,3 +1,4 @@
+using _Source.Scripts.PlayerScripts;
 using UnityEngine;
 
 public class Bootstrapper : MonoBehaviour
@@ -30,7 +31,6 @@ public class Bootstrapper : MonoBehaviour
         playerCombat = new PlayerCombat();
         playerMovement = new PlayerMovement();
         playerInvoker = new PlayerInvoker(player, playerMovement);
-        activeWeapon = new ActiveWeapon(playerControls);
 
         playerInvoker.Subscribe(inputListener);
     }

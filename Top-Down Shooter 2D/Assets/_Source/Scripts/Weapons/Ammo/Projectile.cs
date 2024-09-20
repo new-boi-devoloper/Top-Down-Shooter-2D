@@ -1,16 +1,26 @@
+using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 22f;
-    [SerializeField] private float projectileRange = 10f;
-    [SerializeField] private float projectileDamage = 1;
+    private float _projectileRange;
+    private float _moveSpeed;
+    private float _projectileDamage;
+    private Vector3 _direction;
 
-    private Vector3 startPosition;
-
-    private void Start()
+    private Vector3 _startPosition;
+    
+    public void UpdateStats(float moveSpeed, float projectileDamage, float projectileRange, Vector3 position)
     {
-        startPosition = transform.position;
+        _moveSpeed = moveSpeed;
+        _projectileDamage = projectileDamage;
+        _projectileRange = projectileRange;
+        _startPosition = position;
+    }
+
+    public void SetDirection(Vector3 direction)
+    {
+        _direction = direction.normalized;
     }
 
     private void Update()
@@ -19,31 +29,21 @@ public class Projectile : MonoBehaviour
         DetectFireDistance();
     }
 
-    public void UpdateProjectileRange(float projectileRange)
-    {
-        this.projectileRange = projectileRange;
-    }
-
-    public void UpdateMoveSpeed(float moveSpeed)
-    {
-        this.moveSpeed = moveSpeed;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             Enemy enemyHealth = other.gameObject.GetComponent<Enemy>();
             if (enemyHealth)
             {
-                enemyHealth.ChangeHealth(projectileDamage);
+                enemyHealth.ChangeHealth(_projectileDamage);
             }
         }
     }
 
     private void DetectFireDistance()
     {
-        if (Vector3.Distance(transform.position, startPosition) > projectileRange)
+        if (Vector3.Distance(transform.position, _startPosition) > _projectileRange)
         {
             Destroy(gameObject);
         }
@@ -51,6 +51,6 @@ public class Projectile : MonoBehaviour
 
     private void MoveProjectile()
     {
-        transform.Translate(Vector3.right * (Time.deltaTime * moveSpeed));
+        transform.Translate(_direction * (Time.deltaTime * _moveSpeed));
     }
 }

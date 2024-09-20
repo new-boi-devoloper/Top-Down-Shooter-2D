@@ -20,8 +20,8 @@ MonoBehaviour:
   roamingDistanceMin: 1
   roamingTimerMax: 2
   isChasingEnemy: 1
-  chasingDistance: 5
+  chasingDistance: 1
   chasingSpeedMultiplier: 2
   isAttackingEnemy: 1
-  attackingDistance: 2
+  attackingDistance: 0.5
   attackRate: 2

@@ -54,7 +54,7 @@ public class WaveManager : MonoBehaviour
         if (enemySpawner != null)
         {
             Debug.Log("5");
-            enemySpawner.SpawnEnemies(5);
+            enemySpawner.SpawnEnemies(8);
             Debug.Log("6");
         }
     }

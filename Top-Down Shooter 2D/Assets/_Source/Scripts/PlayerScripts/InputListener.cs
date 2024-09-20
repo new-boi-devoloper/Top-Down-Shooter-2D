@@ -1,48 +1,63 @@
 using System;
+using _Source.Scripts.ScriptedInstruments;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
-public class InputListener : MonoBehaviour
+namespace _Source.Scripts.PlayerScripts
 {
-    public event Action<Vector2> OnMove;
-    public event Action OnStop;
-    public event Action OnFire;
-
-    private PlayerControls playerControls;
-    private AimingSystem aimingSystem;
-
-    private void Awake()
+    public class InputListener : Singleton<InputListener>
     {
-        playerControls = new PlayerControls();
-        playerControls.Player.Fire.performed += ctx => OnFire?.Invoke();
-        aimingSystem = GetComponent<AimingSystem>();
-    }
+        [SerializeField] private WeaponParent weaponParent;
+        public event Action<Vector2> OnMove;
+        public event Action OnStop;
+        public event Action OnFire;
 
-    private void FixedUpdate()
-    {
-        Vector2 movemntInput = playerControls.Player.Move.ReadValue<Vector2>();
-        if (movemntInput != Vector2.zero)
+        private PlayerControls playerControls;
+
+        protected override void Awake()
         {
-            OnMove?.Invoke(movemntInput);
+            base.Awake();
+        
+            playerControls = new PlayerControls();
+            playerControls.Player.Fire.performed += ctx => OnFire?.Invoke();
         }
-        else
+
+        private void Update()
         {
-            OnStop?.Invoke();
+            Vector2 movemntInput = playerControls.Player.Move.ReadValue<Vector2>();
+            if (movemntInput != Vector2.zero)
+            {
+                OnMove?.Invoke(movemntInput);
+            }
+            else
+            {
+                OnStop?.Invoke();
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+
+            }
+
+            Vector2 pointerInput = GetPointerInut();
+            weaponParent.PointerPosition = pointerInput;
         }
-    }
 
-    private void OnEnable()
-    {
-        playerControls.Enable();
-    }
+        private Vector2 GetPointerInut()
+        {
+            Vector3 mousePos = playerControls.Player.Look.ReadValue<Vector2>();
+            mousePos.z = Camera.main.nearClipPlane;
+            return Camera.main.ScreenToWorldPoint(mousePos);
+        }
 
-    private void OnDisable()
-    {
-        playerControls.Disable();
-    }
+        private void OnEnable()
+        {
+            playerControls.Enable();
+        }
 
-    public Vector3 GetAimPosition()
-    {
-        return aimingSystem.GetAimPosition();
+        private void OnDisable()
+        {
+            playerControls.Disable();
+        }
     }
 }
