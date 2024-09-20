@@ -8,6 +8,7 @@ namespace _Source.Scripts.PlayerScripts
     public class InputListener : Singleton<InputListener>
     {
         [SerializeField] private WeaponParent weaponParent;
+        [SerializeField] private Pistol weaponPrefab;
         public event Action<Vector2> OnMove;
         public event Action OnStop;
         public event Action OnFire;
@@ -36,7 +37,7 @@ namespace _Source.Scripts.PlayerScripts
 
             if (Input.GetMouseButtonDown(0))
             {
-
+                weaponPrefab.Attack();
             }
 
             Vector2 pointerInput = GetPointerInut();

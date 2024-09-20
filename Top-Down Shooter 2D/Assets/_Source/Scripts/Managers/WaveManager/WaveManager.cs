@@ -4,6 +4,8 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private int amountToSpawn = 8; // Количество врагов для спавна
+    [SerializeField] private float initializationDelay = 0.2f; // Время задержки перед 
 
     public int remainingEnemies { get; private set; }
 
@@ -32,6 +34,7 @@ public class WaveManager : MonoBehaviour
         if (ObjectPooler.Instance != null)
         {
             ObjectPooler.Instance.OnPoolInitialized += OnPoolInitialized;
+            Debug.Log("2");
         }
         else
         {
@@ -53,9 +56,7 @@ public class WaveManager : MonoBehaviour
         // Вызываем спавн врагов после инициализации ObjectPooler
         if (enemySpawner != null)
         {
-            Debug.Log("5");
-            enemySpawner.SpawnEnemies(8);
-            Debug.Log("6");
+            SpawnNewWave();
         }
     }
 
@@ -63,5 +64,16 @@ public class WaveManager : MonoBehaviour
     {
         remainingEnemies--;
         Debug.Log($"Enemy died. Remaining enemies: {remainingEnemies}");
+
+        if (remainingEnemies <= 0)
+        {
+            SpawnNewWave();
+        }
+    }
+
+    private void SpawnNewWave()
+    {
+        remainingEnemies = amountToSpawn;
+        enemySpawner.SpawnEnemies(amountToSpawn);
     }
 }

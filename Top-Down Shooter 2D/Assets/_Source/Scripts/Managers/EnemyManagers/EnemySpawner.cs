@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private List<int> enemyIds; // Список ID врагов для спавна
+    [SerializeField] private List<int> enemyIds;
 
-    private List<Transform> _randomSpawnPositions; // Список позиций для спавна врагов
+    private List<Transform> _randomSpawnPositions;
 
     private void OnEnable()
     {
@@ -15,13 +14,12 @@ public class EnemySpawner : MonoBehaviour
         var allChildren = GetComponentsInChildren<Transform>();
         foreach (var child in allChildren)
         {
-            if (child != transform) // Исключаем родительский объект
+            if (child != transform)
             {
                 _randomSpawnPositions.Add(child);
             }
         }
 
-        // Проверка на пустоту списка
         if (_randomSpawnPositions.Count == 0)
         {
             Debug.LogError("No spawn points found. Please add child objects to the EnemySpawner.");
@@ -38,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
         {
             return;
         }
-        
+
         if (_randomSpawnPositions == null || _randomSpawnPositions.Count == 0)
         {
             return;
@@ -49,12 +47,10 @@ public class EnemySpawner : MonoBehaviour
             int randomId = PickRandomId();
             Transform randomPosition = PickRandomPosition();
 
-
             GameObject spawnedEnemy = ObjectPooler.Instance.SpawnFromPool(randomId, randomPosition.position, Quaternion.identity);
             if (spawnedEnemy == null)
             {
                 Debug.LogWarning($"Failed to spawn enemy with ID {randomId} at position {randomPosition.position}.");
-
             }
         }
     }
@@ -69,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
         if (_randomSpawnPositions == null || _randomSpawnPositions.Count == 0)
         {
             Debug.LogError("No spawn points available.");
-            return null; // Возвращаем null, чтобы избежать ошибки
+            return null;
         }
 
         int randomIndex = Random.Range(0, _randomSpawnPositions.Count);

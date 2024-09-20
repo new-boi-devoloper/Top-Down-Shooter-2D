@@ -6,10 +6,10 @@ public class Projectile : MonoBehaviour
     private float _projectileRange;
     private float _moveSpeed;
     private float _projectileDamage;
-    private Vector3 _direction;
+    private Vector3 _direction = Vector3.right;
 
     private Vector3 _startPosition;
-    
+
     public void UpdateStats(float moveSpeed, float projectileDamage, float projectileRange, Vector3 position)
     {
         _moveSpeed = moveSpeed;
@@ -18,18 +18,13 @@ public class Projectile : MonoBehaviour
         _startPosition = position;
     }
 
-    public void SetDirection(Vector3 direction)
-    {
-        _direction = direction.normalized;
-    }
-
     private void Update()
     {
         MoveProjectile();
         DetectFireDistance();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {

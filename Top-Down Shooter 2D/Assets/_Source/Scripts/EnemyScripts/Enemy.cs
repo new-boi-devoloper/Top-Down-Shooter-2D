@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using _Source.Scripts.Managers;
 using UnityEngine;
 
@@ -19,6 +17,7 @@ public class Enemy : MonoBehaviour, IPooledObject
         enemyInvoker = new EnemyInvoker(this);
 
         EnemyHealth = enemyData.health;
+        PoolId = enemyData.enemyId;
         InitializeComponents();
     }
 
@@ -37,7 +36,9 @@ public class Enemy : MonoBehaviour, IPooledObject
     public void ChangeHealth(float amount)
     {
         EnemyHealth -= amount;
-        if ((EnemyHealth -= amount) == 0)
+        Debug.Log($"Took hit, remaining health: {EnemyHealth}");
+
+        if (EnemyHealth <= 0)
         {
             enemyInvoker.SetState(EnemyState.Death);
             OnEnemyDead();
@@ -46,14 +47,12 @@ public class Enemy : MonoBehaviour, IPooledObject
 
     private void OnEnemyDead()
     {
-        // Вызов события OnEnemyDeath и возврат объекта врага в пул
-        WaveManager.Instance.OnEnemyDeath();
         ObjectPooler.Instance.ReturnToPool(PoolId, gameObject);
+        WaveManager.Instance.OnEnemyDeath();
     }
 
     public void OnObjectSpawn()
     {
-        // Сброс состояния врага при появлении из пула
         if (enemyAI != null)
         {
             enemyAI.ResetState();
@@ -62,5 +61,7 @@ public class Enemy : MonoBehaviour, IPooledObject
         {
             Debug.LogError("EnemyAI component is missing.");
         }
+
+        EnemyHealth = enemyData.health;
     }
 }

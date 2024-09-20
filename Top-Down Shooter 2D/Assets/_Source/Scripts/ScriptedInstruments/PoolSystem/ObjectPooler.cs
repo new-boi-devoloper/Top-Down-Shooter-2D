@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ObjectPooler : MonoBehaviour
 {
@@ -12,12 +11,15 @@ public class ObjectPooler : MonoBehaviour
         public int poolSize;
         public GameObject objectPrefab;
     }
-    
+
     public static ObjectPooler Instance { get; private set; }
 
     public event Action OnPoolInitialized;
 
-    #region Singleton
+    public List<Pool> pools;
+
+    private Dictionary<int, Queue<GameObject>> _poolDictionary;
+    private bool _isInitialized;
 
     private void Awake()
     {
@@ -31,14 +33,6 @@ public class ObjectPooler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    #endregion
-    
-    public List<Pool> pools;
-
-    private Dictionary<int, Queue<GameObject>> _poolDictionary;
-    
-    private bool _isInitialized;
 
     private void Start()
     {
@@ -60,17 +54,16 @@ public class ObjectPooler : MonoBehaviour
             {
                 var obj = Instantiate(pool.objectPrefab);
                 obj.SetActive(false);
-                DontDestroyOnLoad(obj); // Добавляем объекты в DontDestroyOnLoad
+                DontDestroyOnLoad(obj);
                 objectPool.Enqueue(obj);
             }
 
             _poolDictionary.Add(pool.enemyId, objectPool);
         }
 
-        // Вызываем событие после инициализации пулов
         OnPoolInitialized?.Invoke();
     }
-    
+
     public GameObject SpawnFromPool(int id, Vector2 position, Quaternion rotation)
     {
         if (!_poolDictionary.TryGetValue(id, out var objectPool) || objectPool.Count == 0)
@@ -112,7 +105,6 @@ public class ObjectPooler : MonoBehaviour
         }
 
         objectToReturn.SetActive(false);
-
         _poolDictionary[id].Enqueue(objectToReturn);
     }
 }
